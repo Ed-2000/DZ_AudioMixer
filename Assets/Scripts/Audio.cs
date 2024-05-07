@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class Button : MonoBehaviour
+public class Audio : MonoBehaviour
 {
-    [SerializeField] private AudioMixerGroup _audioMixerGroup;
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _clip;
-
     private const string ButtonsVolume = nameof(ButtonsVolume);
     private const string MasterVolume = nameof(MasterVolume);
     private const string MusicVolume = nameof(MusicVolume);
+
+    [SerializeField] private AudioMixerGroup _audioMixerGroup;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _clip;
 
     public void PlaySound()
     {
@@ -17,7 +17,7 @@ public class Button : MonoBehaviour
         _audioSource.Play();
     }
 
-    public void OfOnSound()
+    public void TurnOfOnSound()
     {
         if (_audioMixerGroup.audioMixer.GetFloat(MasterVolume, out float currentVolume))
         {
@@ -54,8 +54,6 @@ public class Button : MonoBehaviour
         float maxValue = 1f;
         float coefficient = 4f;
 
-        float res = Mathf.Log10(Mathf.Clamp(value, minValue, maxValue)) * (maxVolume - zeroVolume) / coefficient + maxVolume;
-
-        return res;
+        return Mathf.Log10(Mathf.Clamp(value, minValue, maxValue)) * (maxVolume - zeroVolume) / coefficient + maxVolume;
     }
 }
